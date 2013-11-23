@@ -75,8 +75,8 @@ def index(page = 1):
         db.session.commit()
         flash('Your post is now live!')
         logged = User.query.all() 
-        userNumber = logged.index(g.user)
-        logged.pop(userNumber)
+#        userNumber = logged.index(g.user)             COMMENTED FOR DEBUGGING ONLY MUST BE UNCOMMENTED
+#        logged.pop(userNumber)
         def userTimes(userList):
              a = []
              for x in userList:
