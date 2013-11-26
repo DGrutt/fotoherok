@@ -75,8 +75,8 @@ def index(page = 1):
         db.session.commit()
         flash('Your post is now live!')
         logged = User.query.all() 
-#        userNumber = logged.index(g.user)             COMMENTED FOR DEBUGGING ONLY MUST BE UNCOMMENTED
-#        logged.pop(userNumber)
+        userNumber = logged.index(g.user)           
+        logged.pop(userNumber)
         def userTimes(userList):
              a = []
              for x in userList:
@@ -125,6 +125,8 @@ def index(page = 1):
     ago = ago(times)
     latest = logged[ago.index(min(ago))]
     reply = latest.posts.all()
+    if reply == []:
+        reply = [" "]
     reply = reply[-1].body
     match = ""
 #    if reply == post:
