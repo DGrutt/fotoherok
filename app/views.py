@@ -91,6 +91,8 @@ def index(page = 1):
         ago = ago(times)
         latest = logged[ago.index(min(ago))]
         reply = latest.posts.all()
+        if reply == []:
+            reply = [" "]
         reply = reply[-1].body
         if reply == post.body:
            flash("Match")
