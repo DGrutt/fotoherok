@@ -92,9 +92,11 @@ def index(page = 1):
         latest = logged[ago.index(min(ago))]
         reply = latest.posts.all()
         if reply == []:
-            reply = [" "]
-        reply = reply[-1].body
+            reply = reply[-1].body
         if reply == post.body:
+           reply = [
+                { 'author': user, 'body': 'Test post #1' },
+                    ]
            flash("Match")
            match = "Match"
 #        return redirect(url_for('index'))
@@ -126,7 +128,9 @@ def index(page = 1):
     latest = logged[ago.index(min(ago))]
     reply = latest.posts.all()
     if reply == []:
-        reply = [" "]
+        reply = [
+                { 'author': user, 'body': 'Test post #1' },
+        ]
     reply = reply[-1].body
     match = ""
 #    if reply == post:
