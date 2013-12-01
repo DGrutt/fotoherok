@@ -91,12 +91,14 @@ def index(page = 1):
         ago = ago(times)
         latest = logged[ago.index(min(ago))]
         reply = latest.posts.all()
-        if reply == []: 
-           reply = [
-                { 'author': user, 'body': 'Test post #1' },
-                    ]
-        if reply[-1].body:
+#        if reply == []: 
+#           reply = [
+#                { 'author': user, 'body': 'Test post #1' },
+#                    ]
+        if len(reply)>1:
             reply = reply[-1].body
+        else:
+            reply =""
         if reply == post.body:
            flash("Match")
            match = "Match"
@@ -128,12 +130,14 @@ def index(page = 1):
     ago = ago(times)
     latest = logged[ago.index(min(ago))]
     reply = latest.posts.all()
-    if reply == []:
-        reply = [
-                { 'author': user, 'body': 'Test post #1' },
-        ]
-    if reply[-1].body:
+#    if reply == []:
+#        reply = [
+#                { 'author': user, 'body': 'Test post #1' },
+#        ]
+    if len(reply)>1:
         reply = reply[-1].body
+    else:
+        reply = ""
     match = ""
 #    if reply == post:
 #        match = "Match"
