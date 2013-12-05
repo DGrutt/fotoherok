@@ -8,11 +8,11 @@
         <img src="{{user.avatar(128)}}" class="img-polaroid">
     </div>
     <h1>{{user.nickname}}</h1>
-    {% if user.about_me %}<p>{{user.about_me}}</p>{% endif %}
+    <b>Interests:</b>{% if user.about_me %}<p>{{user.about_me}}</p>{% endif %}
     {% if user.last_seen %}<p><em>Last seen on: {{user.last_seen}}</em></p>{% endif %}
     <p>Followers: {{user.followers.count() - 1}} | Following: {{user.followed.count() - 1}} |
     {% if user.id == g.user.id %}
-        <a href="{{url_for('edit')}}">Edit your profile</a>
+        <a href="{{url_for('edit')}}">List more interests</a>
     {% elif not g.user.is_following(user) %}
         <a href="{{url_for('follow', nickname = user.nickname)}}">Follow</a>
     {% else %}
@@ -20,6 +20,30 @@
     {% endif %}
     </p>
 </div>
+{% if user.id != g.user.id %}
+
+<div class="well well-large" style="height: 480px;">
+
+    <h1>Send a message to {{user.nickname}}!</h1>
+
+    <textarea rows="4" cols="950" style="width:600px; height:300px;">
+                                                                                                     
+    </textarea>
+    <p>
+    <button class="btn btn-danger" type="button">Submit</button>
+    </p>
+</div>
+{% endif %}
+
+
+
+
+
+
+
+
+
+<!-- commenting out the posts for now
 {% for post in posts.items %}
     {% include 'post.html' %}
 {% endfor %}
@@ -35,4 +59,4 @@
     <li class="next disabled"><a href="#">Older posts</a></li>
     {% endif %}
 </ul>
-{% endblock %}
+{% endblock %} -->
