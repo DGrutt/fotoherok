@@ -63,6 +63,9 @@ def internal_error(error):
     db.session.rollback()
     return render_template('500.html'), 500
 
+
+
+
 @app.route('/', methods = ['GET', 'POST'])
 @app.route('/index', methods = ['GET', 'POST'])
 @app.route('/index/<int:page>', methods = ['GET', 'POST'])
@@ -198,18 +201,40 @@ def logout():
     logout_user()
     return redirect(url_for('index'))
     
-@app.route('/user/<nickname>')
-@app.route('/user/<nickname>/<int:page>')
+@app.route('/user/<nickname>', methods = ['GET', 'POST'] )
+@app.route('/user/<nickname>/<int:page>', methods = ['GET', 'POST'] )
 @login_required
 def user(nickname, page = 1):
+    form = PostForm()
     user = User.query.filter_by(nickname = nickname).first()
     if user == None:
         flash('User ' + nickname + ' not found.')
         return redirect(url_for('index'))
     posts = user.posts.paginate(page, POSTS_PER_PAGE, False)
     return render_template('user.html',
+        form = form,
         user = user,
         posts = posts)
+
+
+@app.route('/messages/<nickname>')
+@app.route('/user/<nickname>/<int:page>')
+@login_required
+def messages(nickname, page = 1):
+    user = User.query.filter_by(nickname = nickname).first()
+    if user == None:
+        flash('User ' + nickname + ' not found.')
+        return redirect(url_for('index'))
+    posts = user.posts.paginate(page, POSTS_PER_PAGE, False)
+    return render_template('messages.html',
+        user = user,
+        posts = posts)
+
+
+
+
+
+
 
 @app.route('/edit', methods = ['GET', 'POST'])
 @login_required

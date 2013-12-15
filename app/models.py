@@ -21,7 +21,8 @@ class User(db.Model):
     nickname = db.Column(db.String(64), unique = True)
     email = db.Column(db.String(120), index = True, unique = True)
     role = db.Column(db.SmallInteger, default = ROLE_USER)
-    posts = db.relationship('Post', backref = 'author', lazy = 'dynamic')
+    posts =  db.relationship('Post', backref = 'author', lazy = 'dynamic')
+    messages =  db.relationship('Message', backref = 'author', lazy = 'dynamic')
     about_me = db.Column(db.String(140))
     last_seen = db.Column(db.DateTime)
     followed = db.relationship('User', 
@@ -77,6 +78,7 @@ class User(db.Model):
     def __repr__(self):
         return '<User %r>' % (self.nickname)    
         
+
 class Post(db.Model):
     __searchable__ = ['body']
     
@@ -87,6 +89,19 @@ class Post(db.Model):
 
     def __repr__(self):
         return '<Post %r>' % (self.body)
+
+
+class Message(db.Model):
+    __searchable__ = ['body']
+    
+    id = db.Column(db.Integer, primary_key = True)
+    body = db.Column(db.String(14000))
+    timestamp = db.Column(db.DateTime)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+    def __repr__(self):
+        return '<Message %r>' % (self.body)
+
 
 if WHOOSH_ENABLED:
     import flask.ext.whooshalchemy as whooshalchemy
