@@ -26,11 +26,24 @@
 
     <h1>Send a message to {{user.nickname}}!</h1>
 
-    <textarea>
-                                                                                                     
+    <textarea class="form-horizontal" action="" method="post" name="post">
+     
+
+
+     {{form.hidden_tag()}}
+        <div class="control-group{% if form.errors.post %} error{% endif %}">
+            <label class="control-label" for="post">Your word:</label>
+            <div class="controls">
+                {{ form.post(size = 30, maxlength = 140) }}
+                {% for error in form.errors.post %}
+                    <span class="help-inline">[{{error}}]</span><br>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="control-group">                                                                                                
     </textarea>
     <p>
-    <button class="btn btn-danger" type="button">Submit</button>
+    <button class="btn btn-danger" type="submit" value="Post!">Submit</button>
     </p>
 </div>
 {% endif %}
